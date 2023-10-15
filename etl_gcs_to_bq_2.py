@@ -38,18 +38,6 @@ def write_bq(df: pd.DataFrame) -> None:
         if_exists="append"
     )
 
-'''
-@flow()
-def etl_gcs_to_bq():
-    """Main ETL flow to load data into Big Query"""
-    color = "green"
-    year = 2020
-    month = 1
-    path = extract_from_gcs(color, year, month)
-    
-    df = load(path)
-    write_bq(df)
-'''
 
 @flow(name='etl-gcs-to-bq-flow')
 def etl_gcs_to_bq(year: int, month: int, color: str) -> None:
@@ -68,14 +56,6 @@ def etl_parent_flow(
     for month in months:
         etl_gcs_to_bq(year, month, color)
 
-'''    
-if __name__ == "__main__":
-    color = "yellow"
-    months = [1, 2, 3]
-    year = 2021
-    etl_parent_flow(months, year, color)
-    #etl_gcs_to_bq()    
-'''
 
 
 
